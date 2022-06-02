@@ -10,7 +10,7 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
     using Strings for uint256;
 
     uint256 public constant MAX_SUPPLY = 1000;
-    uint256 public constant MAX_PUBLIC_MINT = 2;
+    uint256 public constant MAX_PUBLIC_MINT = 5;
 
     string private  baseTokenUri;
     string public   placeholderTokenUri;
