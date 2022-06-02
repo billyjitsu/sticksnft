@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/common/ERC2981.sol";
 
 contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
     using Strings for uint256;
-    
+
     uint256 public constant MAX_SUPPLY = 1000;
     uint256 public constant MAX_PUBLIC_MINT = 2;
 
@@ -17,7 +17,7 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
 
     //toggle reveal, toggle Mint 
     bool public isRevealed;
-    bool public publicSale;
+    bool public pause;
 
     mapping(address => uint256) public totalPublicMint;
 
@@ -33,9 +33,9 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
     }
 
     function mint(uint256 _quantity) external payable callerIsUser{
-        require(publicSale, "StickNFT - Not Yet Active.");
-        require((totalSupply() + _quantity) <= MAX_SUPPLY, "StickNFT - Beyond Max Supply");
-        require((totalPublicMint[msg.sender] +_quantity) <= MAX_PUBLIC_MINT, "StickNFT - hit max mint for this wallet!");
+        require(pause, "Not Yet Active.");
+        require((totalSupply() + _quantity) <= MAX_SUPPLY, "Beyond Max Supply");
+        require((totalPublicMint[msg.sender] +_quantity) <= MAX_PUBLIC_MINT, "Max mint for this wallet!");
 
         totalPublicMint[msg.sender] += _quantity;
         _safeMint(msg.sender, _quantity);
@@ -47,7 +47,7 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
 
     //return uri for certain token
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        require(_exists(tokenId), "URI query for nonexistent token");
 
         if(!isRevealed){
             return placeholderTokenUri;
@@ -110,8 +110,8 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
         placeholderTokenUri = _placeholderTokenUri;
     }
 
-    function togglePublicSale() external onlyOwner{
-        publicSale = !publicSale;
+    function togglePause() external onlyOwner{
+        pause = !pause;
     }
 
     function toggleReveal() external onlyOwner{

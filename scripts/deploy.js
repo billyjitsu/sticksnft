@@ -17,6 +17,9 @@ async function main() {
   console.log("gasUsed:" , receipt.gasUsed);
 }
 
+//2134522 * gwei gas( 54 ) = 115,264,188  
+// Gwei to Eth = 0.115264188
+
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main()
