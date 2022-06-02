@@ -26,16 +26,18 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
         placeholderTokenUri = _hiddenURI;
     }
 
+
     //Make sure that calls are not from contracts
     modifier callerIsUser() {
-        require(tx.origin == msg.sender, "StickNFT - Cannot be called by a contract");
+        require(tx.origin == msg.sender, "Can't be called by contract");
         _;
     }
+    
 
     function mint(uint256 _quantity) external payable callerIsUser{
         require(pause, "Not Yet Active.");
         require((totalSupply() + _quantity) <= MAX_SUPPLY, "Beyond Max Supply");
-        require((totalPublicMint[msg.sender] +_quantity) <= MAX_PUBLIC_MINT, "Max mint for this wallet!");
+        require((totalPublicMint[msg.sender] +_quantity) <= MAX_PUBLIC_MINT, "Max mint for wallet!");
 
         totalPublicMint[msg.sender] += _quantity;
         _safeMint(msg.sender, _quantity);
@@ -47,7 +49,7 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
 
     //return uri for certain token
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "URI query for nonexistent token");
+        require(_exists(tokenId), "Nonexistent token");
 
         if(!isRevealed){
             return placeholderTokenUri;

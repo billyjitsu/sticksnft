@@ -25,8 +25,8 @@ async function main() {
   // NFT Claim
   
     let txnPaus = await web3.togglePause();
-    
-    for(let i = 0; i < 3; i++) {
+
+    for(let i = 0; i < 2; i++) {
      let txnMintNFT = await web3.mint(1);
      await txnMintNFT.wait()
      console.log("minted")
