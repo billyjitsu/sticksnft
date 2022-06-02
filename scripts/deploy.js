@@ -5,7 +5,7 @@ async function main() {
   //variables
   const royalty = "500";
   const hiddenURI = "https://nfbeez.mypinata.cloud/ipfs/QmSnQ8qXZX2ADbiYni9fJ4igyTDHgF9Q7HZweFb7BHTUuq/1.json";
- // const merkle = "";
+
   
   const Web3 = await hre.ethers.getContractFactory("SticksNFT");
   const web3 = await Web3.deploy(royalty, hiddenURI);
