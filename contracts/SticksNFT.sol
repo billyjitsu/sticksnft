@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/common/ERC2981.sol";
 
-contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
+contract StixNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
     using Strings for uint256;
 
     uint256 public constant MAX_SUPPLY = 1000;
@@ -21,7 +21,7 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
 
     mapping(address => uint256) public totalPublicMint;
 
-    constructor(uint96 _royaltyFeesInBips, string memory _hiddenURI) ERC721A("SticksNFT", "STK"){
+    constructor(uint96 _royaltyFeesInBips, string memory _hiddenURI) ERC721A("StixNFT", "STX"){
         setRoyaltyInfo(msg.sender, _royaltyFeesInBips);
         placeholderTokenUri = _hiddenURI;
     }
@@ -34,7 +34,7 @@ contract SticksNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
     }
     
 
-    function mint(uint256 _quantity) external payable callerIsUser{
+    function mint(uint256 _quantity) external callerIsUser{
         require(pause, "Not Yet Active.");
         require((totalSupply() + _quantity) <= MAX_SUPPLY, "Beyond Max Supply");
         require((totalPublicMint[msg.sender] +_quantity) <= MAX_PUBLIC_MINT, "Max mint for wallet!");

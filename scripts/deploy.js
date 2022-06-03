@@ -7,12 +7,12 @@ async function main() {
   const hiddenURI = "https://nfbeez.mypinata.cloud/ipfs/QmSnQ8qXZX2ADbiYni9fJ4igyTDHgF9Q7HZweFb7BHTUuq/1.json";
 
   
-  const Web3 = await hre.ethers.getContractFactory("SticksNFT");
+  const Web3 = await hre.ethers.getContractFactory("StixNFT");
   const web3 = await Web3.deploy(royalty, hiddenURI);
 
   await web3.deployed();
 
-  console.log("SticksNFT Contract deployed to:", web3.address);
+  console.log("StixNFT Contract deployed to:", web3.address);
   const receipt = await web3.deployTransaction.wait();
   console.log("gasUsed:" , receipt.gasUsed);
 }
