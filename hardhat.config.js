@@ -23,7 +23,11 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
-
+    mainnet: {
+      url: process.env.MAINNET_RPC_URL,
+      accounts: [process.env.PRIVATE_KEY],
+      saveDeployments: true,
+    },
     rinkeby: {
       url: process.env.RINKEBY_RPC_URL,
       accounts: [process.env.PRIVATE_KEY],

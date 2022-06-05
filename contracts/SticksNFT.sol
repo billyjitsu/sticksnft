@@ -10,7 +10,7 @@ contract StixNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
     using Strings for uint256;
 
     uint256 public constant MAX_SUPPLY = 1000;
-    uint256 public constant MAX_PUBLIC_MINT = 5;
+    uint256 public constant MAX_PUBLIC_MINT = 3;
 
     string private  baseTokenUri;
     string public   placeholderTokenUri;
@@ -21,8 +21,8 @@ contract StixNFT is ERC721A, Ownable, ERC2981, ReentrancyGuard{
 
     mapping(address => uint256) public totalPublicMint;
 
-    constructor(uint96 _royaltyFeesInBips, string memory _hiddenURI) ERC721A("StixNFT", "STX"){
-        setRoyaltyInfo(msg.sender, _royaltyFeesInBips);
+    constructor(uint96 _royaltyFeesInBips, string memory _hiddenURI, address _royal) ERC721A("StixNFT", "STX"){
+        setRoyaltyInfo(_royal, _royaltyFeesInBips);
         placeholderTokenUri = _hiddenURI;
     }
 
